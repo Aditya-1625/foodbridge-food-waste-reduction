@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - FoodBridge</title>
+    <link rel="icon" type="image/svg+xml" href="img/favicon.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <div class="auth">
+        <aside class="auth-side auth-visual-side">
+            <div class="auth-bg-img" style="background-image: url('img/community-action.jpg')"></div>
+            <div class="auth-side-overlay"></div>
+            <div class="auth-side-content">
+                <a href="index.html" class="brand brand-light">
+                    <img src="img/logo-icon.svg" alt="FoodBridge">
+                    <span>FoodBridge</span>
+                </a>
+                <div class="auth-side-hero">
+                    <span class="pill-tag light"><i class="ri-sparkling-fill"></i> Quick Onboarding</span>
+                    <h2>Register once. Start rescuing fresh meals today.</h2>
+                    <p>Restaurants share surplus. NGOs and community shelters collect it. Your location enables instant proximity matching with closest partners.</p>
+                    <div class="auth-features-list">
+                        <div class="auth-feat-item"><i class="ri-checkbox-circle-fill"></i> <span>Direct connection without third-party commission</span></div>
+                        <div class="auth-feat-item"><i class="ri-checkbox-circle-fill"></i> <span>Real-time GPS routing & instant notification</span></div>
+                        <div class="auth-feat-item"><i class="ri-checkbox-circle-fill"></i> <span>Transparent impact tracking for CSR & reports</span></div>
+                    </div>
+                </div>
+                <div class="auth-side-foot">
+                    <small><i class="ri-time-line"></i> Takes about two minutes · Free forever</small>
+                </div>
+            </div>
+        </aside>
+        <main class="auth-main">
+            <div class="auth-card register-card">
+                <div class="auth-card-head">
+                    <div class="auth-icon-badge"><i class="ri-user-add-fill"></i></div>
+                    <h1>Create your account</h1>
+                    <p class="sub">Select your organization type, then fill in your coordinates.</p>
+                </div>
+                <form id="registerForm" novalidate>
+                    <div class="role-pick" role="radiogroup" aria-label="Account type">
+                        <label class="role-card">
+                            <input type="radio" name="role" value="restaurant" checked>
+                            <div class="role-card-inner">
+                                <div class="role-icon-box g"><i class="ri-restaurant-2-fill"></i></div>
+                                <div>
+                                    <strong>Restaurant</strong>
+                                    <span>I have surplus food to donate</span>
+                                </div>
+                            </div>
+                        </label>
+                        <label class="role-card">
+                            <input type="radio" name="role" value="ngo">
+                            <div class="role-card-inner">
+                                <div class="role-icon-box b"><i class="ri-hand-heart-fill"></i></div>
+                                <div>
+                                    <strong>NGO or Shelter</strong>
+                                    <span>I collect food for people in need</span>
+                                </div>
+                            </div>
+                        </label>
+                    </div>
+                    <div class="row">
+                        <div class="field">
+                            <label for="name" id="nameLabel"><i class="ri-building-line"></i> Restaurant name</label>
+                            <input id="name" placeholder="e.g. Spice Garden" required>
+                        </div>
+                        <div class="field">
+                            <label for="ownerName"><i class="ri-user-3-line"></i> Contact person</label>
+                            <input id="ownerName" placeholder="Manager / Lead name">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="field">
+                            <label for="email"><i class="ri-mail-line"></i> Email address</label>
+                            <input type="email" id="email" autocomplete="email" placeholder="name@domain.com" required>
+                        </div>
+                        <div class="field">
+                            <label for="phone"><i class="ri-phone-line"></i> Phone number</label>
+                            <input type="tel" id="phone" placeholder="9876543210" required>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="field">
+                            <label for="password"><i class="ri-lock-password-line"></i> Password</label>
+                            <div class="input-wrap password-wrap">
+                                <input type="password" id="password" autocomplete="new-password" minlength="6" placeholder="Min. 6 characters" required>
+                                <button type="button" class="password-toggle-btn" data-target="password" aria-label="Toggle password visibility" title="Show/Hide password">
+                                    <i class="ri-eye-line"></i>
+                                </button>
+                            </div>
+                            <span class="hint">At least 6 characters</span>
+                        </div>
+                        <div class="field">
+                            <label for="registrationNo" id="regNoLabel"><i class="ri-file-shield-line"></i> FSSAI licence number</label>
+                            <input id="registrationNo" placeholder="FSSAI-12345678">
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label for="address"><i class="ri-map-pin-line"></i> Full street address</label>
+                        <input id="address" placeholder="Street, area, landmarks" required>
+                    </div>
+                    <div class="row">
+                        <div class="field">
+                            <label for="city"><i class="ri-community-line"></i> City</label>
+                            <input id="city" placeholder="e.g. Mumbai, Belagavi" required>
+                        </div>
+                        <div class="field hidden" id="capacityField">
+                            <label for="capacity"><i class="ri-group-line"></i> Feeding capacity (people/day)</label>
+                            <input type="number" id="capacity" min="0" placeholder="e.g. 150">
+                        </div>
+                    </div>
+                    <div class="loc-card">
+                        <div class="loc-card-header">
+                            <span class="loc-title"><i class="ri-navigation-line"></i> Coordinates for Map Matching</span>
+                            <button class="btn btn-ghost btn-sm" type="button" id="geoBtn">
+                                <i class="ri-crosshair-2-line"></i> Auto-detect Location
+                            </button>
+                        </div>
+                        <div class="loc-row">
+                            <div class="field" style="margin:0">
+                                <label for="lat">Latitude</label>
+                                <input id="lat" type="number" step="any" placeholder="16.4016" required>
+                            </div>
+                            <div class="field" style="margin:0">
+                                <label for="long">Longitude</label>
+                                <input id="long" type="number" step="any" placeholder="74.3792" required>
+                            </div>
+                        </div>
+                        <p class="hint" style="font-size:12.5px;color:var(--muted);margin:8px 0 0">
+                            Accurate coordinates ensure real-time proximity sorting for rapid collection.
+                        </p>
+                    </div>
+                    <p class="error" id="formError" role="alert"></p>
+                    <button class="btn btn-primary btn-block btn-lg" type="submit" id="submitBtn">
+                        <span>Complete Registration</span> <i class="ri-arrow-right-line"></i>
+                    </button>
+                </form>
+                <p class="alt">Already registered? <a href="login.html"><b>Log in to account <i class="ri-arrow-right-s-line"></i></b></a></p>
+            </div>
+        </main>
+    </div>
+    <script src="js/common.js"></script>
+    <script src="js/auth.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log in - FoodBridge</title>
+    <link rel="icon" type="image/svg+xml" href="img/favicon.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <div class="auth">
+        <aside class="auth-side auth-visual-side">
+            <div class="auth-bg-img" style="background-image: url('img/community-action.jpg')"></div>
+            <div class="auth-side-overlay"></div>
+            <div class="auth-side-content">
+                <a href="index.html" class="brand brand-light">
+                    <img src="img/logo-icon.svg" alt="FoodBridge">
+                    <span>FoodBridge</span>
+                </a>
+                <div class="auth-side-hero">
+                    <span class="pill-tag light"><i class="ri-heart-pulse-fill"></i> Community First</span>
+                    <h2>Welcome back. Someone is waiting for a meal tonight.</h2>
+                    <p>Log in to view incoming donation requests, track verified pickups, and monitor your social impact live.</p>
+                    <div class="auth-mini-stat">
+                        <i class="ri-shield-flash-fill"></i>
+                        <span>Zero food waste · Direct local community distribution</span>
+                    </div>
+                </div>
+                <div class="auth-side-foot">
+                    <small>© 2026 FoodBridge · Surplus food to people who need it</small>
+                </div>
+            </div>
+        </aside>
+        <main class="auth-main">
+            <div class="auth-card">
+                <div class="auth-card-head">
+                    <div class="auth-icon-badge"><i class="ri-login-circle-fill"></i></div>
+                    <h1>Welcome back</h1>
+                    <p class="sub">Enter your account credentials to access your dashboard.</p>
+                </div>
+                <form id="loginForm" novalidate>
+                    <div class="field">
+                        <label for="email"><i class="ri-mail-line"></i> Email address</label>
+                        <div class="input-wrap">
+                            <input type="email" id="email" autocomplete="email" placeholder="name@organization.com" required>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <div style="display:flex; justify-content:space-between; align-items:center;">
+                            <label for="password"><i class="ri-lock-line"></i> Password</label>
+                            <a href="forgot-password.html" style="font-size:13px; color:var(--leaf-dark); font-weight:600; text-decoration:none;">Forgot password?</a>
+                        </div>
+                        <div class="input-wrap password-wrap">
+                            <input type="password" id="password" autocomplete="current-password" placeholder="••••••••" required>
+                            <button type="button" class="password-toggle-btn" data-target="password" aria-label="Toggle password visibility" title="Show/Hide password">
+                                <i class="ri-eye-line"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <p class="error" id="formError" role="alert"></p>
+                    <button class="btn btn-primary btn-block" type="submit" id="submitBtn">
+                        <span>Log in to Dashboard</span> <i class="ri-arrow-right-line"></i>
+                    </button>
+                </form>
+                <p class="alt">New here? <a href="register.html"><b>Create an account <i class="ri-arrow-right-s-line"></i></b></a></p>
+                <div class="demo-box">
+                    <div class="demo-header"><i class="ri-flashlight-fill"></i> Quick Login Access</div>
+                    <p>Click any account below to auto-fill credentials:</p>
+                    <div class="demo-btns">
+                        <button type="button" class="demo-pill" data-demo="restaurant@demo.com" data-pwd="demo123">
+                            <i class="ri-restaurant-line"></i> Restaurant (demo123)
+                        </button>
+                        <button type="button" class="demo-pill" data-demo="ngo@demo.com" data-pwd="demo123">
+                            <i class="ri-hand-heart-line"></i> NGO (demo123)
+                        </button>
+                        <button type="button" class="demo-pill" data-demo="admin@demo.com" data-pwd="demo123" style="border-color:var(--turmeric);color:var(--ink)">
+                            <i class="ri-shield-check-fill" style="color:var(--turmeric)"></i> Admin (demo123)
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script src="js/common.js"></script>
+    <script src="js/auth.js"></script>
+</body>
+
+</html>

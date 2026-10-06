@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - FoodBridge</title>
+    <link rel="icon" type="image/svg+xml" href="img/favicon.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <div class="app">
+        <aside class="side">
+            <a href="index.html" class="brand"><img src="img/logo-icon.svg" alt="">FoodBridge</a>
+            <nav id="sideNav" aria-label="Main"></nav>
+            <div class="me">
+                <div class="who">
+                    <div class="avatar" id="avatar"></div>
+                    <div><b id="meName"></b><small id="meRole"></small></div>
+                </div>
+                <button class="nav-btn logout-nav-btn" id="logoutBtn"><i class="ri-logout-box-r-line"></i> Log out</button>
+            </div>
+        </aside>
+
+        <div class="main">
+            <!-- 2. EMERGENCY RESCUE BANNER (Real-time alert for < 2h food) -->
+            <div id="emergencyBanner" class="emergency-banner hidden">
+                <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+                    <span class="emergency-badge"><i class="ri-alarm-warning-fill"></i> Emergency Food Rescue Active</span>
+                    <span id="emergencyBannerText">Urgent surplus food nearby expires within 2 hours!</span>
+                </div>
+                <button class="btn btn-sm btn-emergency" id="emergencyBannerBtn">View Emergency Requests</button>
+            </div>
+
+            <div class="topbar">
+                <div>
+                    <div style="display:flex;align-items:center;gap:10px">
+                        <h1 id="pageTitle">Overview</h1>
+                        <span id="topTrustBadge"></span>
+                    </div>
+                    <p id="pageSub"></p>
+                </div>
+                <div class="bell-wrap">
+                    <button class="bell" id="bellBtn" aria-label="Notifications">
+                        <i class="ri-notification-3-line bell-icon"></i>
+                        <span class="badge hidden" id="bellBadge">0</span>
+                    </button>
+                    <div class="dropdown hidden" id="notifBox">
+                        <header>Notifications <button id="markAll">Mark all as read</button></header>
+                        <div class="notif-list" id="notifList"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- OVERVIEW -->
+            <section id="view-overview">
+                <div class="stats" id="statTiles"></div>
+                <div class="grid-2">
+                    <div class="panel">
+                        <h2>Food by type</h2>
+                        <p class="sub">Share of your donations by kind of food</p>
+                        <div class="chart-box"><canvas id="typeChart"></canvas></div>
+                    </div>
+                    <div class="panel">
+                        <h2>Last 7 days</h2>
+                        <p class="sub">Kilograms of food listed each day</p>
+                        <div class="chart-box"><canvas id="weekChart"></canvas></div>
+                    </div>
+                </div>
+                <div class="panel" style="margin-top:20px">
+                    <h2 id="recentTitle">Recent activity</h2>
+                    <p class="sub" id="recentSub"></p>
+                    <div class="cards" id="recentCards"></div>
+                </div>
+            </section>
+
+            <!-- 1. NEW DONATION & AI ASSISTANT (restaurant) -->
+            <section id="view-new" class="hidden">
+                <div class="grid-form">
+                    <div class="panel">
+                        <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:8px">
+                            <h2>Food details</h2>
+                            <button type="button" class="btn btn-sm btn-ai" id="aiAssistBtn">
+                                <i class="ri-sparkling-2-fill"></i> ✨ Run AI Assistant
+                            </button>
+                        </div>
+                        <p class="sub">Tell the NGO what is available or let AI calculate servings and optimal matches.</p>
+                        <form id="donationForm" novalidate>
+                            <div class="field"><label for="foodName">Food item</label><input id="foodName"
+                                    placeholder="e.g. Veg Biryani, Mixed Dal & Roti" required></div>
+                            <div class="row">
+                                <div class="field"><label for="foodType">Food type</label>
+                                    <select id="foodType">
+                                        <option value="cooked">Cooked meals</option>
+                                        <option value="raw">Raw ingredients</option>
+                                        <option value="packaged">Packaged food</option>
+                                        <option value="bakery">Bakery items</option>
+                                    </select>
+                                </div>
+                                <div class="field"><label>Diet</label>
+                                    <div class="seg"><label><input type="radio" name="isVeg" value="true"
+                                                checked>Veg</label><label><input type="radio" name="isVeg"
+                                                value="false">Non-veg</label></div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="field"><label for="quantity">Quantity</label><input type="number"
+                                        id="quantity" min="0.1" step="any" placeholder="e.g. 20" required></div>
+                                <div class="field"><label for="unit">Unit</label><select id="unit">
+                                        <option value="portions">Portions</option>
+                                        <option value="kg" selected>Kilograms</option>
+                                        <option value="liter">Litres</option>
+                                    </select></div>
+                            </div>
+                            <div class="row">
+                                <div class="field">
+                                    <label for="prepTime">Preparation time (Optional)</label>
+                                    <input type="datetime-local" id="prepTime">
+                                </div>
+                                <div class="field">
+                                    <label for="expiryTime">Must be eaten before *</label>
+                                    <input type="datetime-local" id="expiryTime" required>
+                                </div>
+                            </div>
+                            <div class="field"><label for="pickupAddress">Pickup address</label><input
+                                    id="pickupAddress"></div>
+                            <div class="field"><label for="description">Notes for the NGO (optional)</label><textarea
+                                    id="description"
+                                    placeholder="Packing, allergens, parking, who to ask for..."></textarea></div>
+
+                            <!-- AI Assistant Result Box -->
+                            <div id="aiResultBox" class="ai-panel hidden">
+                                <div class="ai-panel-header">
+                                    <div class="ai-panel-title">
+                                        <i class="ri-robot-2-line"></i> AI Donation Optimization Report
+                                    </div>
+                                    <span id="aiUrgencyBadge" class="urgency-badge urgency-normal">🟢 Normal</span>
+                                </div>
+                                <div class="ai-grid">
+                                    <div class="ai-card">
+                                        <div class="ai-card-label">Estimated Servings</div>
+                                        <div class="ai-card-val" id="aiServingsVal">0 meals</div>
+                                    </div>
+                                    <div class="ai-card">
+                                        <div class="ai-card-label">Priority Level</div>
+                                        <div class="ai-card-val" id="aiPriorityVal">Priority 3</div>
+                                    </div>
+                                    <div class="ai-card">
+                                        <div class="ai-card-label">Safe Transit Window</div>
+                                        <div class="ai-card-val" id="aiDispatchVal" style="font-size:14px">Within 4-6h</div>
+                                    </div>
+                                </div>
+                                <div id="aiNgoCard" class="ai-ngo-match hidden">
+                                    <div>
+                                        <div style="font-size:12px;font-weight:700;color:#1e40af;text-transform:uppercase">Top Recommended Shelter</div>
+                                        <b id="aiNgoName" style="color:#0f172a;font-size:15px">Asha Kiran Shelter</b>
+                                        <div id="aiNgoDetails" style="font-size:12px;color:var(--muted)">2.4 km away • Feeds 120/day</div>
+                                    </div>
+                                    <button type="button" class="btn btn-sm btn-primary" id="aiSelectNgoBtn">Select This NGO</button>
+                                </div>
+                                <div class="ai-guidelines-box">
+                                    <h4><i class="ri-shield-check-fill"></i> Safe Storage & HACCP Handling Guidelines</h4>
+                                    <ul id="aiStorageList"></ul>
+                                </div>
+                                <p id="aiSummaryText" style="margin-top:10px;font-size:13px;color:#1e3a8a;font-style:italic"></p>
+                            </div>
+
+                            <p class="error" id="donationError" role="alert"></p>
+                            <button class="btn btn-primary" type="submit" id="donationBtn" style="margin-top:14px">
+                                Send donation request
+                            </button>
+                        </form>
+                    </div>
+
+                    <div class="panel">
+                        <h2>Nearby NGOs and shelters</h2>
+                        <p class="sub">Choose who receives this request or send to all nearby partners.</p>
+                        <div class="field" style="margin-bottom:8px"><label for="radius">Search radius</label>
+                            <select id="radius">
+                                <option value="10">Within 10 km</option>
+                                <option value="25" selected>Within 25 km</option>
+                                <option value="50">Within 50 km</option>
+                                <option value="100">Within 100 km</option>
+                            </select>
+                        </div>
+                        <div id="map" class="map"></div>
+                        <div class="ngo-list" id="ngoList"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- MY DONATIONS / MY PICKUPS -->
+            <section id="view-mine" class="hidden">
+                <div class="tabs" id="mineTabs">
+                    <button class="chip active" data-f="all">All</button>
+                    <button class="chip" data-f="active">In progress</button>
+                    <button class="chip" data-f="emergency">🚨 Emergency (<2h)</button>
+                    <button class="chip" data-f="done">Completed</button>
+                    <button class="chip" data-f="closed">Closed</button>
+                </div>
+                <div class="cards" id="mineCards"></div>
+            </section>
+
+            <!-- 2. INCOMING REQUESTS & EMERGENCY RESCUE (ngo) -->
+            <section id="view-incoming" class="hidden">
+                <div class="tabs" id="incomingTabs">
+                    <button class="chip active" data-inc="all">All incoming</button>
+                    <button class="chip" data-inc="emergency" style="color:#b91c1c;font-weight:700">
+                        🚨 Emergency Rescue (<2h)
+                    </button>
+                    <button class="chip" data-inc="priority">🟡 Priority (2-6h)</button>
+                </div>
+                <div class="cards" id="incomingCards"></div>
+            </section>
+
+            <!-- 3. FOOD WASTE FORECASTING & ANALYTICS -->
+            <section id="view-forecast" class="hidden">
+                <div class="forecast-grid" id="forecastKpis"></div>
+
+                <div class="prediction-box" id="predictionBox">
+                    <h3><i class="ri-brain-line"></i> AI Surplus Waste Projection & Recommendation</h3>
+                    <p id="predictionMessage" style="color:#166534;font-size:14px;line-height:1.6"></p>
+                    <div class="prediction-metrics" id="predictionMetrics"></div>
+                </div>
+
+                <div class="grid-2">
+                    <div class="panel">
+                        <h2>Surplus by Food Category</h2>
+                        <p class="sub">Total surplus food volume categorized by item type</p>
+                        <div class="chart-box"><canvas id="forecastTypeChart"></canvas></div>
+                    </div>
+                    <div class="panel">
+                        <h2>Day-of-Week Surplus Distribution</h2>
+                        <p class="sub">Identifies high-waste days (e.g. weekend peak events)</p>
+                        <div class="chart-box"><canvas id="forecastDayChart"></canvas></div>
+                    </div>
+                </div>
+
+                <div class="panel" style="margin-top:20px">
+                    <h2>Monthly Surplus & Rescue Trends</h2>
+                    <p class="sub">Tracking continuous reduction in kitchen waste over calendar months</p>
+                    <div class="chart-box" style="height:280px"><canvas id="forecastMonthlyChart"></canvas></div>
+                </div>
+            </section>
+
+            <!-- 5. FOOD RESCUE IMPACT CERTIFICATE & DIGITAL PROFILE -->
+            <section id="view-certificate" class="hidden">
+                <div class="certificate-container">
+                    <div class="certificate-actions">
+                        <button class="btn btn-secondary btn-sm" id="copyCertIdBtn">
+                            <i class="ri-file-copy-line"></i> Copy Certificate ID
+                        </button>
+                        <button class="btn btn-primary btn-sm" id="printCertBtn">
+                            <i class="ri-printer-line"></i> Download / Print Certificate
+                        </button>
+                    </div>
+
+                    <div class="cert-paper" id="certPaper">
+                        <div class="cert-header">
+                            <div class="cert-logo">
+                                <img src="img/logo-icon.svg" style="width:28px;height:28px" alt=""> FoodBridge
+                            </div>
+                            <div class="cert-title">Food Rescue Impact Certificate</div>
+                            <div class="cert-subtitle" id="certSubtitle">Verified Social & Environmental Impact</div>
+                        </div>
+
+                        <div class="cert-body">
+                            <div class="cert-presented-to">This accreditation is proudly presented to</div>
+                            <div class="cert-org-name" id="certOrgName">Spice Garden Restaurant</div>
+                            <div>
+                                <span class="cert-role-tag" id="certRoleTag">Certified Food Rescue Partner</span>
+                                <span id="certTrustBadge" style="margin-left:6px"></span>
+                            </div>
+                            <p class="cert-statement">
+                                In recognition of exemplary commitment toward <b>zero food waste</b> and community food security.
+                                This organization has systematically diverted surplus edible food from municipal landfills,
+                                directly alleviating local hunger and preventing verified greenhouse gas emissions.
+                            </p>
+
+                            <div class="cert-metrics-row">
+                                <div class="cert-metric-card">
+                                    <div class="cert-metric-val" id="certKgVal">0 kg</div>
+                                    <div class="cert-metric-label">Food Rescued</div>
+                                </div>
+                                <div class="cert-metric-card">
+                                    <div class="cert-metric-val" id="certMealsVal">0</div>
+                                    <div class="cert-metric-label">Nutritious Meals Served</div>
+                                </div>
+                                <div class="cert-metric-card">
+                                    <div class="cert-metric-val" id="certCo2Val">0 kg</div>
+                                    <div class="cert-metric-label">CO2e Emissions Averted</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="cert-footer">
+                            <div class="cert-meta">
+                                <div><b>Certificate ID:</b> <span id="certIdVal">-</span></div>
+                                <div><b>Issue Date:</b> <span id="certDateVal">-</span></div>
+                                <div><b>Standard:</b> FoodBridge Loss & Waste Protocol 2026</div>
+                                <div><b>Accreditation:</b> <span id="certStatusVal">Verified Community Partner</span></div>
+                            </div>
+                            <div class="cert-seal">
+                                <i class="ri-shield-star-fill" style="font-size:24px;color:#059669;margin-bottom:2px"></i>
+                                <span>VERIFIED RESCUE</span>
+                            </div>
+                            <div class="cert-signature">
+                                <div class="cert-signature-line">Aditya Kharat</div>
+                                <div class="cert-signature-name">Head of Impact Certification, FoodBridge</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Monthly Impact History -->
+                    <div class="panel" style="margin-top:24px">
+                        <h2>Monthly Impact History</h2>
+                        <p class="sub">Verified rescues logged in the FoodBridge ledger</p>
+                        <div id="certMonthlyTable" style="margin-top:12px"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 4. ADMIN VERIFICATION PORTAL -->
+            <section id="view-admin" class="hidden">
+                <div class="forecast-grid" id="adminKpis"></div>
+
+                <div class="tabs" id="adminTabs" style="margin-bottom:18px">
+                    <button class="chip active" data-adm="all">All Organizations</button>
+                    <button class="chip" data-adm="pending">⏳ Pending Review</button>
+                    <button class="chip" data-adm="verified">✅ Verified Partners</button>
+                    <button class="chip" data-adm="rejected">❌ Needs Review</button>
+                </div>
+
+                <div id="adminOrgList" class="cards"></div>
+            </section>
+
+            <!-- PROFILE -->
+            <section id="view-profile" class="hidden">
+                <div class="panel" style="max-width:720px">
+                    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+                        <h2>Registration details</h2>
+                        <span id="profileVerificationBadge"></span>
+                    </div>
+                    <p class="sub">These verified details are shown to community partners and verified by FoodBridge administrators.</p>
+                    <dl class="profile-grid" id="profileGrid"></dl>
+
+                    <!-- Update verification documents form -->
+                    <div style="margin-top:28px;padding-top:20px;border-top:1px solid var(--line)">
+                        <h3 style="font-size:16px;margin-bottom:6px">Update Official License & Verification Documents</h3>
+                        <p class="sub" style="margin-bottom:14px">Submit your FSSAI license or NGO registration certificate reference for official accreditation.</p>
+                        <form id="verifyForm">
+                            <div class="field">
+                                <label for="verRegNo">Registration / Licence Number</label>
+                                <input id="verRegNo" placeholder="e.g. FSSAI-22001144 or NGO-KA-4410">
+                            </div>
+                            <div class="field">
+                                <label for="verDocs">License Details & Compliance Notes</label>
+                                <textarea id="verDocs" placeholder="Certificate issuance date, issuing authority, registration notes..."></textarea>
+                            </div>
+                            <p class="error" id="verError" role="alert"></p>
+                            <button class="btn btn-primary btn-sm" type="submit" id="verBtn">Submit for Verification</button>
+                        </form>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+    <script src="js/common.js"></script>
+    <script src="js/dashboard.js"></script>
+</body>
+
+</html>

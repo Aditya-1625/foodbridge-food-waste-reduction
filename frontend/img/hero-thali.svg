@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 480" role="img" aria-label="A thali plate with five bowls of food">
+  <ellipse cx="240" cy="452" rx="170" ry="14" fill="#10261a" opacity=".08"/>
+  <circle cx="240" cy="240" r="226" fill="#166534"/>
+  <circle cx="240" cy="240" r="212" fill="#e3f1e7"/>
+  <circle cx="240" cy="240" r="190" fill="#ffffff"/>
+  <circle cx="240" cy="240" r="176" fill="none" stroke="#bfdcc8" stroke-width="2" stroke-dasharray="3 7"/>
+  <!-- bowl: dal -->
+  <circle cx="240" cy="112" r="54" fill="#c9a227"/><circle cx="240" cy="112" r="46" fill="#f0b429"/>
+  <ellipse cx="226" cy="98" rx="16" ry="8" fill="#fff" opacity=".35"/>
+  <!-- bowl: sabzi -->
+  <circle cx="362" cy="204" r="54" fill="#0f4a27"/><circle cx="362" cy="204" r="46" fill="#2e8b4f"/>
+  <circle cx="348" cy="196" r="7" fill="#7fc79a"/><circle cx="372" cy="214" r="7" fill="#7fc79a"/><circle cx="360" cy="230" r="6" fill="#7fc79a"/><circle cx="378" cy="190" r="5" fill="#7fc79a"/>
+  <!-- bowl: curry -->
+  <circle cx="316" cy="346" r="54" fill="#9e3220"/><circle cx="316" cy="346" r="46" fill="#d1432b"/>
+  <ellipse cx="304" cy="332" rx="14" ry="7" fill="#fff" opacity=".3"/><rect x="300" y="346" width="16" height="16" rx="4" fill="#f4d7a8"/><rect x="322" y="338" width="14" height="14" rx="4" fill="#f4d7a8"/>
+  <!-- bowl: rice -->
+  <circle cx="164" cy="346" r="54" fill="#cbd8cf"/><circle cx="164" cy="346" r="46" fill="#fbfaf4"/>
+  <g stroke="#e4dfc8" stroke-width="3" stroke-linecap="round"><path d="M142 336l8 3M158 328l7 4M176 334l8-2M150 354l8 2M170 356l9 1M184 346l6 4M156 368l8-2"/></g>
+  <!-- bowl: curd -->
+  <circle cx="118" cy="204" r="54" fill="#c8d0cb"/><circle cx="118" cy="204" r="46" fill="#f7f9f6"/>
+  <circle cx="118" cy="204" r="14" fill="#2e8b4f" opacity=".85"/><circle cx="118" cy="204" r="6" fill="#0f4a27"/>
+  <!-- roti stack in centre -->
+  <circle cx="240" cy="238" r="42" fill="#c98a43"/><circle cx="240" cy="236" r="38" fill="#e8b36b"/>
+  <circle cx="226" cy="226" r="5" fill="#b9762f" opacity=".7"/><circle cx="252" cy="246" r="6" fill="#b9762f" opacity=".7"/><circle cx="240" cy="258" r="4" fill="#b9762f" opacity=".7"/><circle cx="256" cy="224" r="4" fill="#b9762f" opacity=".7"/>
+  <!-- steam -->
+  <g fill="none" stroke="#166534" stroke-width="3" stroke-linecap="round" opacity=".45">
+    <path d="M226 62c-8-10 8-16 0-26"/><path d="M244 58c-8-10 8-16 0-26"/><path d="M262 62c-8-10 8-16 0-26"/>
+  </g>
+</svg>

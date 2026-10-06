@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FoodBridge - Surplus food to people who need it</title>
+    <meta name="description"
+        content="FoodBridge connects restaurants with nearby NGOs and shelters so surplus food reaches people instead of the bin.">
+    <link rel="icon" type="image/svg+xml" href="img/favicon.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <!-- Ambient background gradient orbs -->
+    <div class="ambient-glow g1"></div>
+    <div class="ambient-glow g2"></div>
+
+    <header class="nav">
+        <div class="nav-inner">
+            <a href="index.html" class="brand">
+                <img src="img/logo-icon.svg" alt="FoodBridge Logo" class="brand-logo">
+                <span>FoodBridge</span>
+            </a>
+            <nav class="nav-links">
+                <a class="link" href="#how"><i class="ri-compass-3-line"></i> How it works</a>
+                <a class="link" href="#features"><i class="ri-sparkling-line"></i> Features</a>
+                <a class="link" href="#story"><i class="ri-heart-line"></i> Our Impact</a>
+                <a class="btn btn-ghost btn-sm" id="navLogin" href="login.html"><i class="ri-login-box-line"></i> Log in</a>
+                <a class="btn btn-primary btn-sm" id="navRegister" href="register.html"><i class="ri-user-add-line"></i> Register</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="hero-text-block">
+                <div class="hero-tag">
+                    <span class="pulse-ring"></span>
+                    <i class="ri-leaf-fill"></i> Real-time food rescue platform
+                </div>
+                <h1>Good food belongs on a <span class="gradient-text">plate</span>, not in a bin.</h1>
+                <p class="lead">Restaurants list surplus food in under a minute. The nearest NGO or shelter picks
+                    it up and serves it. Follow every donation handover live on your dashboard.</p>
+                <div class="hero-cta">
+                    <a class="btn btn-primary btn-lg" href="register.html?role=restaurant">
+                        <i class="ri-restaurant-2-fill"></i> I run a restaurant
+                    </a>
+                    <a class="btn btn-accent btn-lg" href="register.html?role=ngo">
+                        <i class="ri-hand-heart-fill"></i> I represent an NGO
+                    </a>
+                </div>
+                <div class="hero-trust">
+                    <div class="trust-avatars">
+                        <span class="t-av g1">R</span>
+                        <span class="t-av g2">N</span>
+                        <span class="t-av g3">S</span>
+                    </div>
+                    <span>Over <strong>500+ meals</strong> saved from waste this week alone</span>
+                </div>
+            </div>
+            <div class="hero-art">
+                <div class="hero-art-frame">
+                    <img src="img/hero-food.jpg" alt="A freshly prepared gourmet feast ready to be shared" class="hero-img">
+                    <div class="hero-overlay-glow"></div>
+                </div>
+                <div class="badge b1 float-anim-1">
+                    <span class="dot dot-green"><span class="ping"></span></span>
+                    <div>
+                        <b>25 portions rescued</b>
+                        <small>Spice Garden · 2 mins ago</small>
+                    </div>
+                </div>
+                <div class="badge b2 float-anim-2">
+                    <span class="dot dot-yellow"><span class="ping"></span></span>
+                    <div>
+                        <b>Asha Kiran Shelter</b>
+                        <small>2.4 km away · Accepted</small>
+                    </div>
+                </div>
+                <div class="badge b3 float-anim-3">
+                    <i class="ri-shield-check-fill badge-check-ic"></i>
+                    <div>
+                        <b>FSSAI Verified</b>
+                        <small>Hygienic & safe packaging</small>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="band">
+            <div class="band-inner" id="liveStats">
+                <div class="band-item">
+                    <div class="band-icon-wrap g"><i class="ri-restaurant-line"></i></div>
+                    <div>
+                        <div class="num" data-key="mealsProvided">0</div>
+                        <div class="lbl">meals delivered</div>
+                    </div>
+                </div>
+                <div class="band-item">
+                    <div class="band-icon-wrap y"><i class="ri-hand-heart-line"></i></div>
+                    <div>
+                        <div class="num" data-key="donationsCompleted">0</div>
+                        <div class="lbl">donations completed</div>
+                    </div>
+                </div>
+                <div class="band-item">
+                    <div class="band-icon-wrap b"><i class="ri-store-3-line"></i></div>
+                    <div>
+                        <div class="num" data-key="restaurants">0</div>
+                        <div class="lbl">restaurants joined</div>
+                    </div>
+                </div>
+                <div class="band-item">
+                    <div class="band-icon-wrap r"><i class="ri-community-line"></i></div>
+                    <div>
+                        <div class="num" data-key="ngos">0</div>
+                        <div class="lbl">NGOs and shelters</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <section class="section" id="how">
+            <div class="section-header text-center">
+                <span class="pill-tag"><i class="ri-route-line"></i> Simple Workflow</span>
+                <h2>From kitchen to community in four simple steps</h2>
+                <p class="sub">No endless phone calls, no guesswork. Everything connects seamlessly in one unified interface.</p>
+            </div>
+            <div class="steps">
+                <div class="step">
+                    <div class="n"><span>1</span><i class="ri-user-add-line"></i></div>
+                    <h3>Register</h3>
+                    <p>Restaurants and NGOs create verified accounts with their precise geographic coordinates.</p>
+                </div>
+                <div class="step">
+                    <div class="n"><span>2</span><i class="ri-restaurant-2-line"></i></div>
+                    <h3>List the food</h3>
+                    <p>Specify the dish name, portions or kilograms, and safe consumption expiry time.</p>
+                </div>
+                <div class="step">
+                    <div class="n"><span>3</span><i class="ri-map-pin-range-line"></i></div>
+                    <h3>Match nearby</h3>
+                    <p>Directly request the closest shelter, or broadcast open requests to all NGOs within range.</p>
+                </div>
+                <div class="step">
+                    <div class="n"><span>4</span><i class="ri-radar-line"></i></div>
+                    <h3>Live tracking</h3>
+                    <p>Monitor progress: Requested, Accepted, Picked Up, and Delivered in real-time.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section features" id="features">
+            <div class="feat-intro">
+                <span class="pill-tag"><i class="ri-sparkling-fill"></i> Powerful Features</span>
+                <h2>Built for real speed on both sides of the handover</h2>
+                <p class="sub">High-efficiency tools designed specifically for restaurant managers and NGO coordinators to rescue meals without friction.</p>
+            </div>
+            <div class="feat-list">
+                <div class="feat">
+                    <div class="ic ic-green"><i class="ri-store-2-fill"></i></div>
+                    <div>
+                        <h3>Restaurant registration</h3>
+                        <p>Verified profile with FSSAI licence number, address and interactive map locator.</p>
+                    </div>
+                </div>
+                <div class="feat">
+                    <div class="ic ic-blue"><i class="ri-map-pin-user-fill"></i></div>
+                    <div>
+                        <h3>Smart nearby matching</h3>
+                        <p>NGOs are ranked by real driving distance on an interactive map so food travels the shortest path.</p>
+                    </div>
+                </div>
+                <div class="feat">
+                    <div class="ic ic-amber"><i class="ri-box-3-fill"></i></div>
+                    <div>
+                        <h3>Detailed food specifications</h3>
+                        <p>Categorized by cooked, raw, or packaged, veg/non-veg flag, quantities, and strict expiry timers.</p>
+                    </div>
+                </div>
+                <div class="feat">
+                    <div class="ic ic-emerald"><i class="ri-send-plane-fill"></i></div>
+                    <div>
+                        <h3>One-click donation dispatch</h3>
+                        <p>Send to a preferred NGO or broadcast nearby. Receiving partners accept with a single tap.</p>
+                    </div>
+                </div>
+                <div class="feat">
+                    <div class="ic ic-indigo"><i class="ri-history-line"></i></div>
+                    <div>
+                        <h3>Transparent live timeline</h3>
+                        <p>Step-by-step visual audit trail ensuring accountability from pickup to final distribution.</p>
+                    </div>
+                </div>
+                <div class="feat">
+                    <div class="ic plus" style="background:#eff6ff;color:#2563eb"><i class="ri-sparkling-2-fill"></i></div>
+                    <div>
+                        <h3>AI Donation Assistant <span class="tag">AI Engine</span></h3>
+                        <p>Intelligent portion estimation, safe storage guidance, and smart distance-scoring for NGO matching.</p>
+                    </div>
+                </div>
+                <div class="feat">
+                    <div class="ic plus" style="background:#fef2f2;color:#dc2626"><i class="ri-alarm-warning-fill"></i></div>
+                    <div>
+                        <h3>Emergency Food Rescue <span class="tag">Urgency</span></h3>
+                        <p>Automatic real-time identification and alert badges for food expiring within 2 hours.</p>
+                    </div>
+                </div>
+                <div class="feat">
+                    <div class="ic plus" style="background:#f0fdf4;color:#16a34a"><i class="ri-line-chart-fill"></i></div>
+                    <div>
+                        <h3>Waste Forecasting & Analytics <span class="tag">ML Insights</span></h3>
+                        <p>Historical trends, surplus pattern prediction, and optimal donation recommendations.</p>
+                    </div>
+                </div>
+                <div class="feat">
+                    <div class="ic plus" style="background:#ecfdf5;color:#059669"><i class="ri-shield-check-fill"></i></div>
+                    <div>
+                        <h3>Trust & Verification System <span class="tag">Security</span></h3>
+                        <p>FSSAI & NGO accreditation badges, admin verification portal, and trusted partner ratings.</p>
+                    </div>
+                </div>
+                <div class="feat">
+                    <div class="ic plus" style="background:#fffbeb;color:#d97706"><i class="ri-award-fill"></i></div>
+                    <div>
+                        <h3>Accredited Impact Certificate <span class="tag">Accreditation</span></h3>
+                        <p>Downloadable, printable official certification verifying diverted food waste and emissions averted.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Visual Community Story Section -->
+        <section class="section visual-story" id="story">
+            <div class="story-grid">
+                <div class="story-img-wrap">
+                    <img src="img/community-action.jpg" alt="Community volunteers and chefs preparing meal packages" class="story-img">
+                    <div class="story-floating-card">
+                        <i class="ri-heart-pulse-fill pulse-ic"></i>
+                        <div>
+                            <b>Zero Food Waste Mission</b>
+                            <p>Delivering fresh, nutritious meals daily</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="story-content">
+                    <span class="pill-tag"><i class="ri-earth-line"></i> Collective Impact</span>
+                    <h2>Turning kitchen surplus into hope and nourishment</h2>
+                    <p class="lead">Every evening, clean, untouched food from kitchens and banquets is left over. FoodBridge bridges the gap with community shelters within minutes before quality deteriorates.</p>
+                    <div class="perk-cards">
+                        <div class="perk-card">
+                            <i class="ri-timer-flash-line"></i>
+                            <div>
+                                <b>Rapid 30-Min Dispatch</b>
+                                <p>Automated proximity alerts notify active volunteers nearby immediately.</p>
+                            </div>
+                        </div>
+                        <div class="perk-card">
+                            <i class="ri-shield-user-line"></i>
+                            <div>
+                                <b>Verified Organizations</b>
+                                <p>Only certified restaurants and registered shelters participate in handovers.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="story-cta">
+                        <a class="btn btn-primary" href="register.html">
+                            Join the Movement <i class="ri-arrow-right-line"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="cta-box">
+            <div class="cta-content">
+                <span class="cta-badge"><i class="ri-fire-fill"></i> Take Action</span>
+                <h2>One tray of leftover food can feed twenty people tonight.</h2>
+                <p>Register your restaurant or shelter in under 2 minutes and start making a measurable difference.</p>
+            </div>
+            <a class="btn btn-accent btn-lg" href="register.html">
+                <i class="ri-user-add-line"></i> Join FoodBridge Today
+            </a>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-inner">
+            <div class="footer-brand">
+                <img src="img/logo-icon.svg" alt="" width="28">
+                <span>FoodBridge</span>
+            </div>
+            <p>Surplus food redistribution platform · Eliminating food waste, empowering communities.</p>
+            <div class="footer-meta">
+                <span class="status-live"><span class="dot dot-green"><span class="ping"></span></span> Systems Operational</span>
+                <span>Problem 14 · Feature Set A</span>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/common.js"></script>
+    <script src="js/landing.js"></script>
+</body>
+
+</html>
