@@ -44,6 +44,11 @@
 
 ---
 
+# FoodBridge – Food Waste Reduction & Donation Management System
+
+## 🌐 Live Demo
+https://foodbridge-food-waste-reduction.vercel.app/
+
 ## 📖 Project Overview
 
 **FoodBridge** is an enterprise-grade full-stack web platform designed to solve the critical urban challenge of edible food waste. Every day, commercial kitchens, banquet halls, restaurants, and catering services discard large volumes of safe, untouched food due to lack of immediate logistical coordination. Concurrently, thousands of vulnerable individuals in nearby community shelters and NGOs face nutritional insecurity.
